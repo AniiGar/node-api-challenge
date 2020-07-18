@@ -7,7 +7,7 @@ const router = express.Router();
 // //--------------------
 //     //Create
 // //--------------------
-router.post('/', (req, res) => {
+router.post('/', validateProject, (req, res) => {
     projects.insert(req.body)
         .then(project => {
             res.status(200).json(project);
@@ -93,5 +93,15 @@ router.delete('/:id', (req, res) => {
             res.status(500).json({ message: 'Error removing the hub' })
         })
 })
+
+function validateProject(req, res, next) {
+    const { name, description } = req.body;
+
+    if (!name || !description) {
+        res.status(404).json({ message: 'Please add name and or description'})
+    } else {
+        next();
+    }
+}
 
 module.exports = router;
