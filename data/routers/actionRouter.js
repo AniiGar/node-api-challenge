@@ -55,10 +55,8 @@ router.put('/:id', (req, res) => {
                 res.status(404).json({message: 'The action could not be found'});
             }
         })
-        .catch(err => {
-            console.log(err => {
-                res.status(500).json({message: 'Error udpdating action'})
-            })
+        .catch(err => {            
+            res.status(500).json({message: 'Error udpdating action'})           
         })
 })
 
